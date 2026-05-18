@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>About Us | ChapaaExpress – Kenya's Trusted Digital Lender</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(105deg, #004D43 0%, #006B5E 100%);
+            border-radius: 48px;
+            padding: 60px 40px;
+            margin: 40px 0 50px;
+            color: white;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .about-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.92;
+            font-size: 1.1rem;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .mv-card {
+            flex: 1;
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            text-align: center;
+            border: 1px solid #e2ede6;
+            transition: 0.2s;
+        }
+        .mv-card i {
+            font-size: 2.5rem;
+            color: #006B5E;
+            margin-bottom: 20px;
+        }
+        .mv-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        .mv-card p {
+            color: #5a6e68;
+            line-height: 1.6;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: white;
+            border-radius: 40px;
+            padding: 48px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            border: 1px solid #e2ede6;
+        }
+        .story-text {
+            flex: 2;
+        }
+        .story-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #004D43;
+        }
+        .story-text p {
+            line-height: 1.7;
+            margin-bottom: 16px;
+            color: #3a524b;
+        }
+        .story-stats {
+            flex: 1;
+            background: #eef6f3;
+            border-radius: 28px;
+            padding: 28px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #006B5E;
+        }
+
+        /* Core Values */
+        .values-section {
+            margin-bottom: 60px;
+        }
+        .values-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .value-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #e2ede6;
+            transition: 0.2s;
+        }
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,107,94,0.08);
+        }
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: #eef6f3;
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: #006B5E;
+        }
+        .value-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        /* Leadership Team */
+        .team-section {
+            margin-bottom: 60px;
+        }
+        .team-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
+        }
+        .team-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #e2ede6;
+        }
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            color: white;
+        }
+        .team-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .team-title {
+            color: #E67E22;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .team-bio {
+            font-size: 0.85rem;
+            color: #5a6e68;
+        }
+
+        /* License & Compliance */
+        .license-section {
+            background: #eef6f3;
+            border-radius: 40px;
+            padding: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .license-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            margin-bottom: 24px;
+        }
+        .license-badge i {
+            font-size: 1.8rem;
+            color: #006B5E;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(95deg, #004D43, #006B5E);
+            border-radius: 48px;
+            padding: 48px;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .cta-btn {
+            background: white;
+            color: #004D43;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .about-hero h1 { font-size: 1.8rem; }
+            .story-section { padding: 28px; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="repayment-guide.html">Repayment</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="#" class="active">About</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="about-hero">
+        <h1><i class="fas fa-leaf"></i> About ChapaaExpress</h1>
+        <p>Kenya's fastest-growing digital credit provider — bridging financial gaps with transparency, speed, and fairness.</p>
+    </div>
+
+    <!-- Mission & Vision -->
+    <div class="mission-vision">
+        <div class="mv-card">
+            <i class="fas fa-bullseye"></i>
+            <h3>Our Mission</h3>
+            <p>To provide every Kenyan with instant, transparent, and affordable credit — empowering individuals to handle emergencies and seize opportunities without hidden fees or bureaucracy.</p>
+        </div>
+        <div class="mv-card">
+            <i class="fas fa-eye"></i>
+            <h3>Our Vision</h3>
+            <p>A Kenya where financial inclusion is universal, and every citizen has access to fair credit that builds their future rather than trapping them in debt.</p>
+        </div>
+    </div>
+
+    <!-- Our Story -->
+    <div class="story-section">
+        <div class="story-text">
+            <h2><i class="fas fa-history"></i> Our Story</h2>
+            <p>ChapaaExpress was founded in 2021 by a team of Kenyan fintech experts who saw a gap in the market: Kenyans needed fast, fair loans without predatory rates or complex paperwork. Traditional banks took days, while some digital lenders charged hidden fees.</p>
+            <p>We built ChapaaExpress to be different. 100% transparent interest rates. Instant M-Pesa disbursement. No origination fees. And a genuine commitment to helping our customers build positive credit history with CRB.</p>
+            <p>Today, we've served over <strong>150,000+ Kenyans</strong> across all 47 counties, with a 98% customer satisfaction rate. We're proud to be a CBK-licensed Digital Credit Provider and a trusted partner for emergency loans, school fees, and business capital.</p>
+        </div>
+        <div class="story-stats">
+            <div class="stat-number">150K+</div>
+            <p>Customers served</p>
+            <div class="stat-number" style="margin-top: 20px;">47</div>
+            <p>Counties reached</p>
+            <div class="stat-number" style="margin-top: 20px;">98%</div>
+            <p>Customer satisfaction</p>
+        </div>
+    </div>
+
+    <!-- Core Values -->
+    <div class="values-section">
+        <h2><i class="fas fa-gem"></i> Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Transparency</h4>
+                <p>No hidden fees. No fine print tricks. You see exactly what you'll pay before you borrow.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-bolt"></i></div>
+                <h4>Speed</h4>
+                <p>Approval in under 2 minutes. Money to M-Pesa in 5 minutes. 24/7/365 service.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-heart"></i></div>
+                <h4>Fairness</h4>
+                <p>We lend to first-timers and those with imperfect credit. Everyone deserves a chance.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Financial Growth</h4>
+                <p>On-time repayment builds your CRB score, unlocking higher limits and lower rates.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leadership Team -->
+    <div class="team-section">
+        <h2><i class="fas fa-users"></i> Leadership Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Michael Otieno</h4>
+                <div class="team-title">CEO & Co-Founder</div>
+                <p class="team-bio">Former banking executive with 15+ years in Kenyan microfinance. Passionate about financial inclusion.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-chart-pie"></i></div>
+                <h4>Dr. Sarah Mwangi</h4>
+                <div class="team-title">Chief Risk Officer</div>
+                <p class="team-bio">PhD in Economics from University of Nairobi. Leads our responsible lending framework.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-laptop-code"></i></div>
+                <h4>James Kariuki</h4>
+                <div class="team-title">CTO</div>
+                <p class="team-bio">Fintech engineer who built M-Pesa integration systems for multiple lenders.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-handshake"></i></div>
+                <h4>Grace Wambui</h4>
+                <div class="team-title">Customer Experience Lead</div>
+                <p class="team-bio">Former CRB customer advocate ensuring fair treatment for all borrowers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- License & Compliance -->
+    <div class="license-section">
+        <div class="license-badge">
+            <i class="fas fa-certificate"></i>
+            <span><strong>CBK Digital Credit Provider License No. DCP/2025/089</strong></span>
+        </div>
+        <p style="margin-bottom: 20px;">ChapaaExpress is fully licensed and regulated by the Central Bank of Kenya. We comply with all lending regulations, including the Banking Act and the Data Protection Act (DPA) 2019.</p>
+        <p><i class="fas fa-check-circle" style="color:#006B5E;"></i> Partner CRBs: TransUnion Kenya & Metropol CRB<br>
+        <i class="fas fa-check-circle" style="color:#006B5E;"></i> Data protection certified — we never share your M-Pesa PIN or personal data with third parties</p>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h3>Ready to experience fair lending?</h3>
+        <p>Join over 150,000 Kenyans who trust ChapaaExpress for fast, transparent loans.</p>
+        <button class="cta-btn" id="applyNowBtn"><i class="fas fa-arrow-right"></i> Apply for a loan now</button>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Kenya's trusted digital lender — fast, fair, and transparent.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><p><a href="about.html">About Us</a><br><a href="calculator.html">Loan Calculator</a><br><a href="loan-terms.html">Terms & Fees</a></p></div>
+            <div class="footer-col"><h4>Contact</h4><p>WhatsApp: +254700987654<br>Email: hello@chapaexpress.co.ke<br>CBK Complaints: 0800 22 55 66</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — Financial inclusion for every Kenyan</div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+                toast.style.background = '#1e2a2f';
+            }, 300);
+        }, 3000);
+    }
+
+    document.getElementById('applyNowBtn')?.addEventListener('click', () => {
+        showToast("🚀 Redirecting to loan application form...", false);
+        setTimeout(() => {
+            window.location.href = 'apply.html';
+        }, 800);
+    });
+
+    // Navbar navigation
+    const navPages = ['index.html', 'apply.html', 'dashboard.html', 'loan-terms.html', 'faq.html', 'contact.html', 'blog.html', 'repayment-guide.html', 'calculator.html'];
+    navPages.forEach(page => {
+        const link = document.querySelector(`.nav-links a[href="${page}"]`);
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = page;
+            });
+        }
+    });
+</script>
+</body>
+</html>

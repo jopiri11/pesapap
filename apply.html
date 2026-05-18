@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanCart | Checkout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: #f8fafc; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #eef2ff;
+      margin-bottom: 2rem;
+    }
+    .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #1e3a8a, #3b82f6); background-clip: text; -webkit-background-clip: text; color: transparent; cursor: pointer; }
+    .checkout-container { background: white; border-radius: 2rem; padding: 2rem; }
+    h2 { margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; font-weight: 500; margin-bottom: 0.4rem; color: #334155; }
+    input, select { width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 1rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .order-summary { background: #f8fafc; padding: 1.5rem; border-radius: 1.5rem; margin: 1.5rem 0; }
+    .order-item { display: flex; justify-content: space-between; padding: 0.5rem 0; }
+    .total { font-weight: 700; font-size: 1.2rem; border-top: 2px solid #e2e8f0; padding-top: 1rem; margin-top: 0.5rem; }
+    .place-order-btn { background: #10b981; color: white; border: none; width: 100%; padding: 1rem; border-radius: 60px; font-weight: 600; font-size: 1rem; cursor: pointer; }
+    .success { text-align: center; padding: 3rem; }
+    .success h2 { color: #10b981; }
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.7rem 1.5rem; border-radius: 60px; opacity: 0; transition: 0.2s; z-index: 1000; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo" onclick="window.location.href='index.html'">UrbanCart</div>
+  </div>
+
+  <div class="checkout-container" id="checkoutForm">
+    <h2>Secure Checkout</h2>
+    <form id="paymentForm">
+      <div class="row">
+        <div class="form-group"><label>First Name</label><input type="text" id="firstName" required></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="lastName" required></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="email" required></div>
+      <div class="form-group"><label>Address</label><input type="text" id="address" required></div>
+      <div class="row">
+        <div class="form-group"><label>City</label><input type="text" id="city" required></div>
+        <div class="form-group"><label>Postal Code</label><input type="text" id="zip" required></div>
+      </div>
+      <div class="row">
+        <div class="form-group"><label>Card Number</label><input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" required></div>
+        <div class="form-group"><label>Expiry</label><input type="text" id="expiry" placeholder="MM/YY" required></div>
+      </div>
+      <div class="order-summary" id="orderSummary"></div>
+      <button type="submit" class="place-order-btn">Place Order →</button>
+    </form>
+  </div>
+</div>
+<div id="toastMsg" class="toast"></div>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem("urban_cart") || "[]");
+
+  function showToast(msg) { 
+    const t = document.getElementById("toastMsg"); 
+    t.innerText = msg; 
+    t.classList.add("show"); 
+    setTimeout(()=>t.classList.remove("show"), 2000);
+  }
+
+  function renderOrderSummary() {
+    if(cart.length === 0) {
+      document.getElementById("orderSummary").innerHTML = "<p>Your cart is empty. <a href='index.html'>Continue shopping</a></p>";
+      return;
+    }
+    let subtotal = 0;
+    let itemsHtml = cart.map(item => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+      return `<div class="order-item"><span>${item.name} x${item.quantity}</span><span>$${itemTotal.toFixed(2)}</span></div>`;
+    }).join('');
+    itemsHtml += `<div class="order-item total"><span>Total</span><span>$${subtotal.toFixed(2)}</span></div>`;
+    document.getElementById("orderSummary").innerHTML = itemsHtml;
+  }
+
+  document.getElementById("paymentForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if(cart.length === 0) { showToast("Your cart is empty!"); return; }
+    const firstName = document.getElementById("firstName").value;
+    if(!firstName) { showToast("Please fill in all fields"); return; }
+    // Process order
+    const orderId = "ORD" + Math.floor(Math.random() * 1000000);
+    localStorage.removeItem("urban_cart");
+    document.getElementById("checkoutForm").innerHTML = `
+      <div class="success">
+        <div style="font-size: 5rem;">🎉</div>
+        <h2>Order Confirmed!</h2>
+        <p style="margin: 1rem 0;">Thank you for your purchase, ${firstName}!</p>
+        <p><strong>Order #: ${orderId}</strong></p>
+        <p>We've sent confirmation to your email.</p>
+        <a href="index.html" style="display: inline-block; margin-top: 2rem; background: #2563eb; color: white; padding: 0.8rem 2rem; border-radius: 60px; text-decoration: none;">Continue Shopping</a>
+      </div>
+    `;
+    showToast("Order placed successfully!");
+  });
+
+  renderOrderSummary();
+  if(cart.length === 0) showToast("Your cart is empty. Add items first!");
+</script>
+</body>
+</html>

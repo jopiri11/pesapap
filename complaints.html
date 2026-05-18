@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Complaints | ChapaaExpress – Formal Complaints Procedure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(105deg, #8B0000 0%, #a00000 100%);
+            border-radius: 48px;
+            padding: 48px 40px;
+            margin: 40px 0 40px;
+            color: white;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 50px;
+        }
+        .complaint-form {
+            flex: 1.2;
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            border: 1px solid #e2ede6;
+        }
+        .info-sidebar {
+            flex: 0.8;
+        }
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e2ede6;
+        }
+        .escalation-card {
+            background: #fff4e6;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 4px solid #E67E22;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+        .input-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1.5px solid #e2e8e4;
+            font-size: 1rem;
+            font-family: 'Inter', monospace;
+        }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #00A88F;
+        }
+        .btn-submit {
+            background: #a00000;
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            background: #8B0000;
+            transform: translateY(-2px);
+        }
+
+        .complaint-status {
+            background: #eef6f3;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #cde0d8;
+        }
+        .status-badge {
+            background: #006B5E;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+        .status-badge.resolved {
+            background: #00A88F;
+        }
+        .status-badge.pending {
+            background: #E67E22;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-content i {
+            font-size: 3rem;
+            color: #00A88F;
+            margin-bottom: 16px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: center;
+        }
+        .modal-buttons button {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            background: #006B5E;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="active">Complaints</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <h1><i class="fas fa-gavel"></i> Formal Complaints Procedure</h1>
+        <p>We take all complaints seriously. Use this form to file a formal complaint. We aim to resolve within 5 business days.</p>
+    </div>
+
+    <div class="two-col">
+        <!-- Complaint Form -->
+        <div class="complaint-form">
+            <h2 style="margin-bottom: 24px;"><i class="fas fa-file-alt"></i> File a Complaint</h2>
+            
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> Full Name *</label>
+                <input type="text" id="fullName" placeholder="Enter your full name">
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-phone"></i> M-Pesa Phone Number *</label>
+                <input type="tel" id="phoneNumber" placeholder="0712345678">
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-tag"></i> Loan ID (if applicable)</label>
+                <input type="text" id="loanId" placeholder="e.g., LN-2025-001">
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-folder"></i> Complaint Category *</label>
+                <select id="complaintCategory">
+                    <option value="">Select category</option>
+                    <option value="crb">CRB Listing / Credit Report Error</option>
+                    <option value="interest">Interest / Fee Dispute</option>
+                    <option value="disbursement">Loan Disbursement Delay</option>
+                    <option value="repayment">Repayment Issue</option>
+                    <option value="customer-service">Poor Customer Service</option>
+                    <option value="fraud">Suspected Fraud / Unauthorized Transaction</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-comment"></i> Description of Complaint *</label>
+                <textarea rows="5" id="complaintDescription" placeholder="Please provide detailed information about your complaint, including dates, amounts, and any relevant reference numbers."></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label><i class="fas fa-upload"></i> Supporting Documents (Optional)</label>
+                <input type="file" id="attachment" accept=".pdf,.jpg,.png">
+                <p style="font-size: 0.7rem; margin-top: 5px; color: #8ba39a;">Max 5MB. Accepted: PDF, JPG, PNG</p>
+            </div>
+            
+            <button class="btn-submit" id="submitComplaintBtn"><i class="fas fa-paper-plane"></i> Submit Complaint</button>
+            
+            <div class="complaint-status">
+                <h4><i class="fas fa-history"></i> Your Complaint Status</h4>
+                <div class="status-item">
+                    <span>Complaint #CMP-2025-001</span>
+                    <span class="status-badge resolved">Resolved</span>
+                </div>
+                <div class="status-item">
+                    <span>Complaint #CMP-2025-002</span>
+                    <span class="status-badge pending">In Progress</span>
+                </div>
+                <p style="margin-top: 12px; font-size: 0.75rem;"><i class="fas fa-info-circle"></i> You will receive updates via SMS and email.</p>
+            </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="info-sidebar">
+            <div class="info-card">
+                <h3><i class="fas fa-clock"></i> Complaint Resolution Timeline</h3>
+                <ul style="list-style: none; margin-top: 12px;">
+                    <li style="padding: 8px 0;"><strong>Step 1:</strong> Acknowledgment within 24 hours</li>
+                    <li style="padding: 8px 0;"><strong>Step 2:</strong> Investigation (1-3 business days)</li>
+                    <li style="padding: 8px 0;"><strong>Step 3:</strong> Resolution within 5 business days</li>
+                    <li style="padding: 8px 0;"><strong>Step 4:</strong> If unresolved, escalate to CBK</li>
+                </ul>
+            </div>
+
+            <div class="escalation-card">
+                <h3><i class="fas fa-arrow-up"></i> Escalation Path</h3>
+                <p>If your complaint is not resolved within 5 business days, you may escalate to:</p>
+                <ul style="margin-left: 20px; margin-top: 12px;">
+                    <li><strong>CBK Complaints Hotline:</strong> 0800 22 55 66</li>
+                    <li><strong>CBK Email:</strong> complaints@centralbank.go.ke</li>
+                    <li><strong>ODPC (Data Privacy):</strong> info@odpc.go.ke</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-phone-alt"></i> Direct Contact</h3>
+                <p><strong>Complaints Officer:</strong> Grace Muthoni</p>
+                <p><strong>Phone:</strong> 0720 111 222</p>
+                <p><strong>Email:</strong> complaints@chapaexpress.co.ke</p>
+                <p><strong>Hours:</strong> Mon-Fri, 9am - 5pm</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-check-circle"></i> What to Include</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Your full name and phone number</li>
+                    <li>Loan ID (if applicable)</li>
+                    <li>Clear description of the issue</li>
+                    <li>Screenshots or transaction IDs</li>
+                    <li>Dates when issue occurred</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>We value your feedback and take complaints seriously.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><p><a href="complaints.html">Complaints Procedure</a><br><a href="contact.html">Contact Us</a><br><a href="loan-terms.html">Loan Terms</a></p></div>
+            <div class="footer-col"><h4>Regulatory</h4><p>CBK License: DCP/2025/089<br>Data Controller Reg: DC/2025/1247</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — Your voice matters. We're listening.</div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <i class="fas fa-check-circle"></i>
+        <h3>Complaint Submitted</h3>
+        <p id="modalMessage">Your complaint has been received. Reference number: CMP-2025-001<br><br>You will receive a response within 24 hours.</p>
+        <div class="modal-buttons">
+            <button id="modalCloseBtn">OK</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let complaintCounter = 3; // For generating complaint numbers
+    
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 3000);
+    }
+    
+    function generateComplaintNumber() {
+        complaintCounter++;
+        const date = new Date();
+        const year = date.getFullYear();
+        return `CMP-${year}-${complaintCounter.toString().padStart(3, '0')}`;
+    }
+    
+    document.getElementById('submitComplaintBtn').addEventListener('click', () => {
+        const fullName = document.getElementById('fullName').value.trim();
+        const phone = document.getElementById('phoneNumber').value.trim();
+        const loanId = document.getElementById('loanId').value.trim();
+        const category = document.getElementById('complaintCategory').value;
+        const description = document.getElementById('complaintDescription').value.trim();
+        const attachment = document.getElementById('attachment').files[0];
+        
+        if (!fullName) {
+            showToast("❌ Please enter your full name", true);
+            return;
+        }
+        
+        if (!phone) {
+            showToast("❌ Please enter your phone number", true);
+            return;
+        }
+        
+        // Phone validation
+        const phoneRegex = /^(07\d{8}|2547\d{8}|\+2547\d{8})$/;
+        if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+            showToast("❌ Please enter a valid Kenyan phone number", true);
+            return;
+        }
+        
+        if (!category) {
+            showToast("❌ Please select a complaint category", true);
+            return;
+        }
+        
+        if (!description) {
+            showToast("❌ Please describe your complaint", true);
+            return;
+        }
+        
+        if (description.length < 20) {
+            showToast("❌ Please provide more details (at least 20 characters)", true);
+            return;
+        }
+        
+        const complaintNumber = generateComplaintNumber();
+        
+        const modal = document.getElementById('confirmationModal');
+        const modalMessage = document.getElementById('modalMessage');
+        modalMessage.innerHTML = `Your complaint has been received.<br><br>
+        <strong>Reference Number:</strong> ${complaintNumber}<br>
+        <strong>Category:</strong> ${category}<br>
+        <strong>Submitted:</strong> ${new Date().toLocaleString()}<br><br>
+        We will respond within 24 hours via SMS to ${phone}.<br><br>
+        <strong>Next Steps:</strong> Our complaints officer will investigate and contact you.`;
+        
+        modal.style.display = 'flex';
+        
+        // Log for demo
+        console.log("Complaint submitted:", { complaintNumber, fullName, phone, loanId, category, description, attachment: attachment?.name });
+        
+        // Clear form
+        document.getElementById('fullName').value = '';
+        document.getElementById('phoneNumber').value = '';
+        document.getElementById('loanId').value = '';
+        document.getElementById('complaintCategory').value = '';
+        document.getElementById('complaintDescription').value = '';
+        document.getElementById('attachment').value = '';
+    });
+    
+    document.getElementById('modalCloseBtn').addEventListener('click', () => {
+        document.getElementById('confirmationModal').style.display = 'none';
+        showToast("✅ Complaint submitted. Check your SMS for updates.", false);
+    });
+    
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('confirmationModal');
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Navbar navigation
+    const navPages = ['index.html', 'apply.html', 'dashboard.html', 'loan-terms.html', 'faq.html', 'contact.html'];
+    navPages.forEach(page => {
+        const link = document.querySelector(`.nav-links a[href="${page}"]`);
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = page;
+            });
+        }
+    });
+</script>
+</body>
+</html>

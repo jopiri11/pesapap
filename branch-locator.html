@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Branch Locator | ChapaaExpress – Find Our Agents in Kenya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(105deg, #004D43 0%, #006B5E 100%);
+            border-radius: 48px;
+            padding: 48px 40px;
+            margin: 40px 0 40px;
+            color: white;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 40px;
+            border: 1px solid #e2ede6;
+        }
+        .search-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-box input {
+            flex: 2;
+            min-width: 250px;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #e2e8e4;
+            font-size: 1rem;
+        }
+        .search-box select {
+            flex: 1;
+            min-width: 180px;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #e2e8e4;
+            font-size: 1rem;
+            background: white;
+        }
+        .search-box button {
+            background: #006B5E;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 50px;
+        }
+        .locations-list {
+            flex: 1;
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            border: 1px solid #e2ede6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .map-placeholder {
+            flex: 1.2;
+            background: #eef6f3;
+            border-radius: 32px;
+            padding: 24px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .map-placeholder i {
+            font-size: 4rem;
+            color: #006B5E;
+            margin-bottom: 16px;
+        }
+
+        /* Location Card */
+        .location-card {
+            padding: 16px;
+            border-bottom: 1px solid #eef2ea;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .location-card:hover {
+            background: #f8faf7;
+            border-radius: 20px;
+        }
+        .location-card h4 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .location-card p {
+            font-size: 0.85rem;
+            color: #5a6e68;
+            margin: 4px 0;
+        }
+        .distance {
+            color: #006B5E;
+            font-weight: 600;
+        }
+
+        /* Branch List */
+        .branches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .branch-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #e2ede6;
+        }
+        .branch-card h4 {
+            color: #006B5E;
+            margin-bottom: 8px;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: #eef6f3;
+            border-radius: 32px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="active">Branch Locator</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <h1><i class="fas fa-map-marker-alt"></i> Find a ChapaaExpress Agent Near You</h1>
+        <p>Visit any of our partner agents or branches across Kenya for loan assistance, repayments, and customer support.</p>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" id="locationSearch" placeholder="Enter city, town, or county... e.g., Nairobi, Kisumu, Mombasa">
+            <select id="countyFilter">
+                <option value="">All Counties</option>
+                <option value="Nairobi">Nairobi</option>
+                <option value="Kisumu">Kisumu</option>
+                <option value="Mombasa">Mombasa</option>
+                <option value="Nakuru">Nakuru</option>
+                <option value="Eldoret">Eldoret</option>
+                <option value="Thika">Thika</option>
+                <option value="Kiambu">Kiambu</option>
+                <option value="Machakos">Machakos</option>
+            </select>
+            <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <!-- Map and Locations -->
+    <div class="two-col">
+        <div class="locations-list">
+            <h3 style="margin-bottom: 16px;"><i class="fas fa-store"></i> Our Locations</h3>
+            <div id="locationsContainer">
+                <!-- Locations loaded via JS -->
+            </div>
+        </div>
+        <div class="map-placeholder">
+            <i class="fas fa-map"></i>
+            <h3>Interactive Map</h3>
+            <p>Select a location above to view details</p>
+            <div style="background: white; border-radius: 20px; padding: 20px; margin-top: 20px; width: 100%;">
+                <i class="fas fa-phone-alt"></i> Need directions?<br>
+                <strong>Call us:</strong> 0709 123 456<br>
+                <strong>WhatsApp:</strong> +254700987654
+            </div>
+        </div>
+    </div>
+
+    <!-- Partner Branches -->
+    <h2 style="margin-bottom: 24px;"><i class="fas fa-building"></i> Partner Branches & Agents</h2>
+    <div class="branches-grid" id="branchesGrid">
+        <!-- Dynamic branch cards -->
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <i class="fas fa-handshake" style="font-size: 2.5rem; color: #006B5E;"></i>
+        <h3 style="margin: 16px 0;">Become a ChapaaExpress Agent</h3>
+        <p>Interested in becoming an authorized ChapaaExpress agent? Partner with us to help your community access fair loans.</p>
+        <button id="becomeAgentBtn" style="background: #006B5E; color: white; border: none; padding: 12px 32px; border-radius: 50px; margin-top: 16px; font-weight: 600; cursor: pointer;"><i class="fas fa-envelope"></i> Contact Agent Program</button>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Physical locations across Kenya for your convenience.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><p><a href="branch-locator.html">Branch Locator</a><br><a href="contact.html">Contact Us</a><br><a href="faq.html">FAQ</a></p></div>
+            <div class="footer-col"><h4>Head Office</h4><p>Purshottam Place, 3rd Floor<br>Westlands Road, Nairobi<br>Mon-Fri: 8am - 5pm</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — We're everywhere you need us</div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+    // Location database
+    const locations = [
+        { id: 1, name: "ChapaaExpress HQ - Westlands", address: "Purshottam Place, 3rd Floor, Westlands Road", county: "Nairobi", city: "Nairobi", phone: "0709 123 456", hours: "Mon-Fri: 8am-5pm, Sat: 9am-1pm", lat: -1.264, lng: 36.800 },
+        { id: 2, name: "CBD Branch - Nairobi", address: "Moi Avenue, Kenya Cinema Building, Ground Floor", county: "Nairobi", city: "Nairobi", phone: "0712 345 678", hours: "Mon-Sat: 8am-6pm", lat: -1.283, lng: 36.817 },
+        { id: 3, name: "Kisumu Branch", address: "Oginga Odinga Road, Mega Plaza, Suite 12", county: "Kisumu", city: "Kisumu", phone: "057 123 4567", hours: "Mon-Fri: 8am-5pm", lat: -0.092, lng: 34.768 },
+        { id: 4, name: "Mombasa Branch", address: "Moi Avenue, NSSF Building, 2nd Floor", county: "Mombasa", city: "Mombasa", phone: "041 123 4567", hours: "Mon-Sat: 8am-5pm", lat: -4.043, lng: 39.668 },
+        { id: 5, name: "Nakuru Branch", address: "Kenyatta Avenue, Westside Mall, Shop B12", county: "Nakuru", city: "Nakuru", phone: "051 123 4567", hours: "Mon-Fri: 8am-5pm", lat: -0.303, lng: 36.080 },
+        { id: 6, name: "Eldoret Branch", address: "Uganda Road, Rupa's Mall, 1st Floor", county: "Eldoret", city: "Eldoret", phone: "053 123 4567", hours: "Mon-Sat: 8am-6pm", lat: 0.514, lng: 35.270 },
+        { id: 7, name: "Thika Branch", address: "Garissa Road, Thika Town, opposite Total Petrol Station", county: "Thika", city: "Thika", phone: "067 123 4567", hours: "Mon-Fri: 8am-5pm", lat: -1.038, lng: 37.083 },
+        { id: 8, name: "Kiambu Branch", address: "Kiambu Road, Kiambu Town, Near Post Office", county: "Kiambu", city: "Kiambu", phone: "066 123 4567", hours: "Mon-Sat: 8am-4pm", lat: -1.172, lng: 36.833 },
+        { id: 9, name: "Machakos Branch", address: "Makutano Road, Machakos Town, Kwa Ngindu Building", county: "Machakos", city: "Machakos", phone: "044 123 4567", hours: "Mon-Fri: 8am-5pm", lat: -1.517, lng: 37.267 },
+        { id: 10, name: "Kitengela Agent", address: "Namanga Road, Kitengela, Next to Equity Bank", county: "Nairobi", city: "Kitengela", phone: "0710 123 456", hours: "Mon-Sun: 9am-7pm", lat: -1.426, lng: 36.946 }
+    ];
+
+    const partnerBranches = [
+        { name: "Tuskys Supermarket - Westlands", service: "Loan application assistance & repayments" },
+        { name: "Naivas - CBD Nairobi", service: "Cash deposit & repayment services" },
+        { name: "QuickMart - Kisumu", service: "Agent - Apply & repay" },
+        { name: "Carrefour - Mombasa", service: "Partner location for customer support" },
+        { name: "Chandarana - Nakuru", service: "Loan repayment via Paybill at counter" }
+    ];
+
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 3000);
+    }
+
+    function renderLocations(filterCounty = '', searchTerm = '') {
+        const container = document.getElementById('locationsContainer');
+        let filtered = [...locations];
+        
+        if (filterCounty) {
+            filtered = filtered.filter(loc => loc.county === filterCounty);
+        }
+        if (searchTerm) {
+            const term = searchTerm.toLowerCase();
+            filtered = filtered.filter(loc => 
+                loc.city.toLowerCase().includes(term) || 
+                loc.name.toLowerCase().includes(term) ||
+                loc.county.toLowerCase().includes(term)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="text-align: center; padding: 40px;">No locations found. Try another search.</p>';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(loc => `
+            <div class="location-card" data-id="${loc.id}">
+                <h4>${loc.name} <span class="distance">📍 ${loc.city}</span></h4>
+                <p><i class="fas fa-location-dot"></i> ${loc.address}</p>
+                <p><i class="fas fa-phone"></i> ${loc.phone}</p>
+                <p><i class="fas fa-clock"></i> ${loc.hours}</p>
+            </div>
+        `).join('');
+        
+        // Add click handlers to location cards
+        document.querySelectorAll('.location-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const id = parseInt(card.getAttribute('data-id'));
+                const location = locations.find(l => l.id === id);
+                if (location) {
+                    showToast(`📍 ${location.name} - ${location.address}. Call ${location.phone} for directions.`);
+                }
+            });
+        });
+    }
+    
+    function renderPartnerBranches() {
+        const container = document.getElementById('branchesGrid');
+        container.innerHTML = partnerBranches.map(branch => `
+            <div class="branch-card">
+                <h4><i class="fas fa-store"></i> ${branch.name}</h4>
+                <p>${branch.service}</p>
+            </div>
+        `).join('');
+    }
+    
+    // Search functionality
+    document.getElementById('searchBtn').addEventListener('click', () => {
+        const county = document.getElementById('countyFilter').value;
+        const searchTerm = document.getElementById('locationSearch').value;
+        renderLocations(county, searchTerm);
+        if (searchTerm && !county) {
+            showToast(`🔍 Searching for "${searchTerm}"...`);
+        } else if (county && !searchTerm) {
+            showToast(`📍 Showing all locations in ${county}`);
+        } else if (county && searchTerm) {
+            showToast(`🔍 Searching "${searchTerm}" in ${county}`);
+        }
+    });
+    
+    // Become agent button
+    document.getElementById('becomeAgentBtn').addEventListener('click', () => {
+        window.location.href = 'mailto:partners@chapaexpress.co.ke?subject=Become%20a%20ChapaaExpress%20Agent&body=Hello,%20I%20am%20interested%20in%20becoming%20an%20authorized%20ChapaaExpress%20agent.%20Please%20send%20me%20more%20information.';
+        showToast("📧 Opening email to partner program team");
+    });
+    
+    // Initialize
+    renderLocations();
+    renderPartnerBranches();
+    
+    // Navbar navigation
+    const navPages = ['index.html', 'apply.html', 'dashboard.html', 'loan-terms.html', 'faq.html', 'contact.html'];
+    navPages.forEach(page => {
+        const link = document.querySelector(`.nav-links a[href="${page}"]`);
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = page;
+            });
+        }
+    });
+</script>
+</body>
+</html>

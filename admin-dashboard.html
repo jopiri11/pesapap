@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admin Dashboard | ChapaaExpress – Loan Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f0;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background: #0C2C27;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+        }
+        .logo span { color: #E67E22; }
+        .admin-badge {
+            background: #E67E22;
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #cfded9;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: #E67E22; }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            background: #eef6f3;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #006B5E;
+        }
+        .stat-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        .stat-info p {
+            color: #5a6e68;
+            font-size: 0.85rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #006B5E;
+            color: white;
+        }
+
+        /* Applications Table */
+        .applications-section, .customers-section {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .search-box input {
+            padding: 10px 16px;
+            border-radius: 40px;
+            border: 1px solid #d6e4de;
+            width: 250px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eef2ea;
+        }
+        th {
+            color: #5a6e68;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .status-pending {
+            background: #fff4e6;
+            color: #E67E22;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-approved {
+            background: #e0f2e9;
+            color: #006B5E;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-rejected {
+            background: #fee;
+            color: #d00000;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 0 4px;
+            font-size: 1rem;
+            padding: 6px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .approve-btn { color: #006B5E; }
+        .approve-btn:hover { background: #e0f2e9; }
+        .reject-btn { color: #d00000; }
+        .reject-btn:hover { background: #fee; }
+        .view-btn { color: #00A88F; }
+        .view-btn:hover { background: #eef6f3; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+        }
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+        }
+        .modal-buttons button {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .confirm-btn {
+            background: #006B5E;
+            color: white;
+        }
+        .cancel-btn {
+            background: #e2ede6;
+            color: #1e2a2f;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 32px 0 24px;
+            border-radius: 40px 40px 0 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; text-align: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            th, td { font-size: 0.8rem; padding: 10px 6px; }
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt"></i></div>
+    <div class="nav-links">
+        <span class="admin-badge"><i class="fas fa-user-shield"></i> Admin Panel</span>
+        <a href="index.html">View Site</a>
+        <a href="#" id="logoutBtn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            <div class="stat-info">
+                <h3 id="pendingCount">0</h3>
+                <p>Pending Applications</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+                <h3 id="approvedCount">0</h3>
+                <p>Approved (This Month)</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+                <h3 id="totalCustomers">0</h3>
+                <p>Total Customers</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-coins"></i></div>
+            <div class="stat-info">
+                <h3 id="totalDisbursed">KES 0</h3>
+                <p>Total Disbursed (All Time)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="applications">📋 Loan Applications</button>
+        <button class="tab-btn" data-tab="customers">👥 Customers</button>
+    </div>
+
+    <!-- Applications Table -->
+    <div id="applicationsTab" class="applications-section">
+        <div class="section-header">
+            <h3><i class="fas fa-list"></i> Pending Loan Applications</h3>
+            <div class="search-box">
+                <input type="text" id="searchApps" placeholder="Search by name or phone...">
+            </div>
+        </div>
+        <div style="overflow-x: auto;">
+            <table id="applicationsTable">
+                <thead>
+                    <tr><th>ID</th><th>Full Name</th><th>Phone</th><th>Amount (KES)</th><th>Days</th><th>Total Repay</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="applicationsBody">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Customers Table -->
+    <div id="customersTab" class="customers-section" style="display: none;">
+        <div class="section-header">
+            <h3><i class="fas fa-users"></i> Registered Customers</h3>
+            <div class="search-box">
+                <input type="text" id="searchCustomers" placeholder="Search by name or phone...">
+            </div>
+        </div>
+        <div style="overflow-x: auto;">
+            <table id="customersTable">
+                <thead>
+                    <tr><th>ID</th><th>Full Name</th><th>Phone</th><th>ID Number</th><th>Total Loans</th><th>Total Borrowed</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="customersBody">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2025 ChapaaExpress — Admin Dashboard | Secure Loan Management System</p>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<!-- Modal for confirmation -->
+<div id="actionModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Confirm Action</h3>
+        <p id="modalMessage">Are you sure you want to proceed?</p>
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="modalCancel">Cancel</button>
+            <button class="confirm-btn" id="modalConfirm">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mock Data for Admin Dashboard
+    let applications = [
+        { id: 1, name: "John Otieno", phone: "0712345678", idNumber: "34567890", amount: 15000, days: 14, totalRepay: 18150, status: "pending", date: "2025-05-17" },
+        { id: 2, name: "Mary Wambui", phone: "0723456789", idNumber: "45678901", amount: 5000, days: 7, totalRepay: 5525, status: "pending", date: "2025-05-18" },
+        { id: 3, name: "Peter Kamau", phone: "0734567890", idNumber: "56789012", amount: 25000, days: 30, totalRepay: 36250, status: "pending", date: "2025-05-16" },
+        { id: 4, name: "Sarah Muthoni", phone: "0745678901", idNumber: "67890123", amount: 10000, days: 21, totalRepay: 13150, status: "approved", date: "2025-05-10" },
+        { id: 5, name: "James Njenga", phone: "0756789012", idNumber: "78901234", amount: 8000, days: 14, totalRepay: 9680, status: "approved", date: "2025-05-05" },
+        { id: 6, name: "Grace Akinyi", phone: "0767890123", idNumber: "89012345", amount: 30000, days: 30, totalRepay: 43500, status: "rejected", date: "2025-05-01" }
+    ];
+
+    let customers = [
+        { id: 1, name: "John Otieno", phone: "0712345678", idNumber: "34567890", totalLoans: 3, totalBorrowed: 45000, status: "active" },
+        { id: 2, name: "Mary Wambui", phone: "0723456789", idNumber: "45678901", totalLoans: 1, totalBorrowed: 5000, status: "active" },
+        { id: 3, name: "Peter Kamau", phone: "0734567890", idNumber: "56789012", totalLoans: 5, totalBorrowed: 85000, status: "active" },
+        { id: 4, name: "Sarah Muthoni", phone: "0745678901", idNumber: "67890123", totalLoans: 2, totalBorrowed: 20000, status: "active" },
+        { id: 5, name: "James Njenga", phone: "0756789012", idNumber: "78901234", totalLoans: 4, totalBorrowed: 62000, status: "blacklisted" },
+        { id: 6, name: "Grace Akinyi", phone: "0767890123", idNumber: "89012345", totalLoans: 1, totalBorrowed: 30000, status: "active" },
+        { id: 7, name: "Michael Omondi", phone: "0778901234", idNumber: "90123456", totalLoans: 0, totalBorrowed: 0, status: "new" },
+        { id: 8, name: "Esther Wanjiku", phone: "0789012345", idNumber: "01234567", totalLoans: 2, totalBorrowed: 12000, status: "active" }
+    ];
+
+    let pendingAction = null;
+    let pendingAppId = null;
+
+    // Helper functions
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 3000);
+    }
+
+    function updateStats() {
+        const pending = applications.filter(a => a.status === 'pending').length;
+        const approved = applications.filter(a => a.status === 'approved').length;
+        const totalCustomers = customers.length;
+        const totalDisbursed = applications.filter(a => a.status === 'approved').reduce((sum, a) => sum + a.amount, 0);
+        
+        document.getElementById('pendingCount').innerText = pending;
+        document.getElementById('approvedCount').innerText = approved;
+        document.getElementById('totalCustomers').innerText = totalCustomers;
+        document.getElementById('totalDisbursed').innerHTML = `KES ${totalDisbursed.toLocaleString()}`;
+    }
+
+    function renderApplications() {
+        const searchTerm = document.getElementById('searchApps')?.value.toLowerCase() || '';
+        const filtered = applications.filter(app => 
+            app.name.toLowerCase().includes(searchTerm) || 
+            app.phone.includes(searchTerm)
+        );
+        
+        const tbody = document.getElementById('applicationsBody');
+        tbody.innerHTML = '';
+        
+        filtered.forEach(app => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = app.id;
+            row.insertCell(1).innerText = app.name;
+            row.insertCell(2).innerText = app.phone;
+            row.insertCell(3).innerText = `KES ${app.amount.toLocaleString()}`;
+            row.insertCell(4).innerText = app.days;
+            row.insertCell(5).innerText = `KES ${app.totalRepay.toLocaleString()}`;
+            
+            let statusHtml = '';
+            if (app.status === 'pending') statusHtml = '<span class="status-pending"><i class="fas fa-clock"></i> Pending</span>';
+            else if (app.status === 'approved') statusHtml = '<span class="status-approved"><i class="fas fa-check"></i> Approved</span>';
+            else statusHtml = '<span class="status-rejected"><i class="fas fa-times"></i> Rejected</span>';
+            row.insertCell(6).innerHTML = statusHtml;
+            
+            const actionsCell = row.insertCell(7);
+            if (app.status === 'pending') {
+                actionsCell.innerHTML = `
+                    <button class="action-btn approve-btn" data-id="${app.id}" data-action="approve"><i class="fas fa-check-circle"></i></button>
+                    <button class="action-btn reject-btn" data-id="${app.id}" data-action="reject"><i class="fas fa-times-circle"></i></button>
+                    <button class="action-btn view-btn" data-id="${app.id}" data-action="view"><i class="fas fa-eye"></i></button>
+                `;
+            } else {
+                actionsCell.innerHTML = `
+                    <button class="action-btn view-btn" data-id="${app.id}" data-action="view"><i class="fas fa-eye"></i></button>
+                `;
+            }
+        });
+        
+        // Attach event listeners to action buttons
+        document.querySelectorAll('.approve-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                openModal('approve', id);
+            });
+        });
+        document.querySelectorAll('.reject-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                openModal('reject', id);
+            });
+        });
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                viewApplication(id);
+            });
+        });
+    }
+    
+    function renderCustomers() {
+        const searchTerm = document.getElementById('searchCustomers')?.value.toLowerCase() || '';
+        const filtered = customers.filter(c => 
+            c.name.toLowerCase().includes(searchTerm) || 
+            c.phone.includes(searchTerm)
+        );
+        
+        const tbody = document.getElementById('customersBody');
+        tbody.innerHTML = '';
+        
+        filtered.forEach(cust => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = cust.id;
+            row.insertCell(1).innerText = cust.name;
+            row.insertCell(2).innerText = cust.phone;
+            row.insertCell(3).innerText = cust.idNumber;
+            row.insertCell(4).innerText = cust.totalLoans;
+            row.insertCell(5).innerText = `KES ${cust.totalBorrowed.toLocaleString()}`;
+            
+            let statusHtml = '';
+            if (cust.status === 'active') statusHtml = '<span class="status-approved">Active</span>';
+            else if (cust.status === 'blacklisted') statusHtml = '<span class="status-rejected">Blacklisted</span>';
+            else statusHtml = '<span class="status-pending">New</span>';
+            row.insertCell(6).innerHTML = statusHtml;
+            
+            row.insertCell(7).innerHTML = `<button class="action-btn view-btn" data-cust-id="${cust.id}"><i class="fas fa-eye"></i> View</button>`;
+        });
+        
+        document.querySelectorAll('.view-btn[data-cust-id]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-cust-id'));
+                viewCustomer(id);
+            });
+        });
+    }
+
+    function openModal(action, appId) {
+        const app = applications.find(a => a.id === appId);
+        if (!app) return;
+        
+        pendingAction = action;
+        pendingAppId = appId;
+        
+        const modal = document.getElementById('actionModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        
+        if (action === 'approve') {
+            modalTitle.innerText = 'Approve Loan Application';
+            modalMessage.innerText = `Are you sure you want to APPROVE ${app.name}'s loan of KES ${app.amount.toLocaleString()}? Funds will be disbursed to ${app.phone}.`;
+        } else {
+            modalTitle.innerText = 'Reject Loan Application';
+            modalMessage.innerText = `Are you sure you want to REJECT ${app.name}'s loan application? They will be notified via SMS.`;
+        }
+        
+        modal.style.display = 'flex';
+    }
+    
+    function closeModal() {
+        document.getElementById('actionModal').style.display = 'none';
+        pendingAction = null;
+        pendingAppId = null;
+    }
+    
+    function confirmAction() {
+        if (pendingAction === 'approve') {
+            const appIndex = applications.findIndex(a => a.id === pendingAppId);
+            if (appIndex !== -1) {
+                applications[appIndex].status = 'approved';
+                showToast(`✅ Loan approved for ${applications[appIndex].name}. Funds will be disbursed to M-Pesa.`, false);
+                renderApplications();
+                updateStats();
+            }
+        } else if (pendingAction === 'reject') {
+            const appIndex = applications.findIndex(a => a.id === pendingAppId);
+            if (appIndex !== -1) {
+                applications[appIndex].status = 'rejected';
+                showToast(`❌ Loan rejected for ${applications[appIndex].name}. Applicant notified.`, false);
+                renderApplications();
+                updateStats();
+            }
+        }
+        closeModal();
+    }
+    
+    function viewApplication(id) {
+        const app = applications.find(a => a.id === id);
+        if (app) {
+            showToast(`📋 Viewing: ${app.name} | KES ${app.amount.toLocaleString()} | ${app.days} days | Status: ${app.status}`, false);
+        }
+    }
+    
+    function viewCustomer(id) {
+        const cust = customers.find(c => c.id === id);
+        if (cust) {
+            showToast(`👤 Customer: ${cust.name} | Phone: ${cust.phone} | ${cust.totalLoans} loans | Total: KES ${cust.totalBorrowed.toLocaleString()}`, false);
+        }
+    }
+    
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.getAttribute('data-tab');
+            
+            if (tab === 'applications') {
+                document.getElementById('applicationsTab').style.display = 'block';
+                document.getElementById('customersTab').style.display = 'none';
+                renderApplications();
+            } else {
+                document.getElementById('applicationsTab').style.display = 'none';
+                document.getElementById('customersTab').style.display = 'block';
+                renderCustomers();
+            }
+        });
+    });
+    
+    // Search functionality
+    document.getElementById('searchApps')?.addEventListener('input', () => renderApplications());
+    document.getElementById('searchCustomers')?.addEventListener('input', () => renderCustomers());
+    
+    // Modal buttons
+    document.getElementById('modalCancel')?.addEventListener('click', closeModal);
+    document.getElementById('modalConfirm')?.addEventListener('click', confirmAction);
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('actionModal')) closeModal();
+    });
+    
+    // Logout
+    document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast("🔒 Logged out successfully. Redirecting to home...", false);
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    });
+    
+    // Initialize
+    updateStats();
+    renderApplications();
+</script>
+</body>
+</html>

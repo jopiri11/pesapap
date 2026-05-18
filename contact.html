@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Contact & Support | ChapaaExpress – Kenya Loan Help</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Hero */
+        .contact-hero {
+            background: linear-gradient(105deg, #004D43 0%, #006B5E 100%);
+            border-radius: 48px;
+            padding: 50px 40px;
+            margin: 40px 0 48px;
+            color: white;
+            text-align: center;
+        }
+        .contact-hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .contact-hero p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Two column layout */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .contact-info {
+            flex: 1;
+            background: white;
+            border-radius: 36px;
+            padding: 32px;
+            border: 1px solid #e2ede6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+        .contact-form {
+            flex: 1.2;
+            background: white;
+            border-radius: 36px;
+            padding: 32px;
+            border: 1px solid #e2ede6;
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eef2ea;
+        }
+        .info-icon {
+            width: 54px;
+            height: 54px;
+            background: #eef6f3;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #006B5E;
+            font-size: 1.5rem;
+        }
+        .info-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .info-text p, .info-text a {
+            color: #4a5e5a;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            background: #eef3f0;
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #006B5E;
+            font-size: 1.3rem;
+            transition: 0.2s;
+        }
+        .social-links a:hover {
+            background: #006B5E;
+            color: white;
+        }
+        .business-hours {
+            background: #f8faf7;
+            padding: 20px;
+            border-radius: 24px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1.5px solid #e2e8e4;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00A88F;
+            box-shadow: 0 0 0 3px rgba(0,168,143,0.1);
+        }
+        .btn-submit {
+            background: linear-gradient(95deg, #006B5E, #008b77);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,107,94,0.3);
+        }
+        .map-placeholder {
+            margin-top: 30px;
+            background: #e9f0ec;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            color: #006B5E;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .contact-hero h1 { font-size: 1.8rem; }
+        }
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        @media (max-width: 550px) {
+            .toast-message { white-space: normal; width: 90%; text-align: center; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="#" class="active">Contact</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="contact-hero">
+        <h1><i class="fas fa-headset"></i> We're here to help</h1>
+        <p>Questions about your loan, repayment, or CRB? Reach out — our team responds within minutes.</p>
+    </div>
+
+    <div class="contact-grid">
+        <!-- Left: Contact Info -->
+        <div class="contact-info">
+            <div class="info-item">
+                <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="info-text">
+                    <h3>WhatsApp Support (Fastest)</h3>
+                    <p><strong>+254 700 987 654</strong><br>Tap to chat — average response: 3 minutes</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="info-text">
+                    <h3>Call Center</h3>
+                    <p><strong>0709 123 456</strong> | <strong>+254 709 123 456</strong><br>For urgent loan issues</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                <div class="info-text">
+                    <h3>Email Support</h3>
+                    <p><strong>help@chapaexpress.co.ke</strong><br>Complaints: complaints@chapaexpress.co.ke<br>Response within 6 hours</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-text">
+                    <h3>Physical Office (Walk-ins)</h3>
+                    <p><strong>Westlands, Nairobi</strong><br>Purshottam Place, 3rd Floor, Westlands Road<br>Mon–Fri: 9am – 4pm</p>
+                </div>
+            </div>
+
+            <div class="business-hours">
+                <i class="fas fa-clock" style="color:#006B5E; margin-right: 8px;"></i> 
+                <strong>Support Hours (EAT):</strong><br>
+                Monday – Saturday: 8:00 AM – 8:00 PM<br>
+                Sunday & Public Holidays: 10:00 AM – 4:00 PM<br>
+                <span style="font-size: 0.8rem;">*Loan disbursements 24/7/365 via automated system</span>
+            </div>
+
+            <div class="social-links">
+                <a href="#" id="twitterLink"><i class="fab fa-twitter"></i></a>
+                <a href="#" id="instagramLink"><i class="fab fa-instagram"></i></a>
+                <a href="#" id="facebookLink"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" id="telegramLink"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+
+        <!-- Right: Contact Form + Callback -->
+        <div class="contact-form">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-paper-plane"></i> Send us a message</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" id="contactName" placeholder="e.g. John Otieno" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone number (M-Pesa registered)</label>
+                    <input type="tel" id="contactPhone" placeholder="0712345678" required>
+                </div>
+                <div class="form-group">
+                    <label>Email address (optional)</label>
+                    <input type="email" id="contactEmail" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Topic</label>
+                    <select id="contactTopic">
+                        <option value="loan-status">Loan status / disbursement</option>
+                        <option value="repayment">Repayment issue</option>
+                        <option value="crb">CRB listing / credit report</option>
+                        <option value="complaint">Complaint / dispute</option>
+                        <option value="other">Other inquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" id="contactMessage" placeholder="Describe your issue or question..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-envelope"></i> Send message</button>
+            </form>
+
+            <div class="map-placeholder">
+                <i class="fas fa-building" style="font-size: 2rem;"></i>
+                <p><strong>📍 Westlands Office (by appointment)</strong><br>Purshottam Place, Westlands Road, Nairobi<br><small>Free customer parking available</small></p>
+                <button id="directionsBtn" style="background: #006B5E; color: white; border: none; padding: 8px 20px; border-radius: 30px; margin-top: 8px; cursor: pointer;">Get Directions</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency / urgent notice -->
+    <div style="background: #fdf2e9; border-radius: 28px; padding: 24px; margin-bottom: 30px; text-align: center; border-left: 5px solid #E67E22;">
+        <i class="fas fa-exclamation-triangle" style="color:#E67E22; font-size: 1.4rem;"></i>
+        <strong>⚠️ For loan default or CRB dispute escalation:</strong> Call our complaints officer directly at <strong>0720 111 222</strong> (Mon–Fri, 9am–5pm) or email <strong>escalations@chapaexpress.co.ke</strong>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Instant digital loans to M-Pesa. Licensed by Central Bank of Kenya.</p></div>
+            <div class="footer-col"><h4>Quick Contacts</h4><p>WhatsApp: +254700987654<br>USSD: *384*88#<br>Email: help@chapaexpress.co.ke</p></div>
+            <div class="footer-col"><h4>Legal</h4><p>CRB reporting applies. T&amp;C on website.</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — Your trusted loan partner in Kenya</div>
+    </div>
+</footer>
+
+<div id="globalToast" class="toast-message"></div>
+
+<script>
+    // Toast notification
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('globalToast');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+                toast.style.background = '#1e2a2f';
+            }, 300);
+        }, 3500);
+    }
+
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value.trim();
+        const phone = document.getElementById('contactPhone').value.trim();
+        const topic = document.getElementById('contactTopic').value;
+        const message = document.getElementById('contactMessage').value.trim();
+
+        if (!name || !phone) {
+            showToast("❌ Please enter your name and phone number.", true);
+            return;
+        }
+        // Basic phone validation
+        const phoneRegex = /^(07\d{8}|2547\d{8}|\+2547\d{8})$/;
+        if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+            showToast("❌ Please enter a valid Kenyan phone number (e.g., 0712345678)", true);
+            return;
+        }
+
+        // Simulate sending to support team
+        showToast(`📨 Thank you ${name}! Your message has been sent. Our team will reply via WhatsApp/SMS within 2 hours.`, false);
+        contactForm.reset();
+    });
+
+    // WhatsApp quick action
+    const whatsappItem = document.querySelector('.info-item:first-child .info-text');
+    if (whatsappItem) {
+        whatsappItem.style.cursor = 'pointer';
+        whatsappItem.addEventListener('click', () => {
+            window.open('https://wa.me/254700987654', '_blank');
+            showToast("Opening WhatsApp chat with ChapaaExpress support", false);
+        });
+    }
+
+    // Call button simulation
+    const callItem = document.querySelectorAll('.info-item')[1];
+    if (callItem) {
+        callItem.style.cursor = 'pointer';
+        callItem.addEventListener('click', () => {
+            showToast("📞 Dialing 0709 123 456", false);
+            window.location.href = "tel:0709123456";
+        });
+    }
+
+    // Email copy suggestion
+    const emailItem = document.querySelectorAll('.info-item')[2];
+    if (emailItem) {
+        emailItem.style.cursor = 'pointer';
+        emailItem.addEventListener('click', () => {
+            navigator.clipboard.writeText("help@chapaexpress.co.ke");
+            showToast("📧 Email address copied: help@chapaexpress.co.ke", false);
+        });
+    }
+
+    // Directions button
+    document.getElementById('directionsBtn')?.addEventListener('click', () => {
+        showToast("📍 Westlands, Purshottam Place. Open in Google Maps (demo)", false);
+        window.open("https://maps.google.com/?q=Westlands+Nairobi+Kenya", "_blank");
+    });
+
+    // Social links (demo)
+    document.getElementById('twitterLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast("🐦 Follow @ChapaaExpress on Twitter for updates", false);
+    });
+    document.getElementById('instagramLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast("📸 Instagram: @chapaaexpress — loan tips & offers", false);
+    });
+    document.getElementById('facebookLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast("👍 Like ChapaaExpress on Facebook", false);
+    });
+    document.getElementById('telegramLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast("📱 Join our Telegram channel for CRB advice", false);
+    });
+
+    // Navbar links redirection (preserve multi-page flow)
+    const homeLink = document.querySelector('.nav-links a[href="index.html"]');
+    if (homeLink) homeLink.addEventListener('click', (e) => { e.preventDefault(); window.location.href = 'index.html'; });
+    const applyLink = document.querySelector('.nav-links a[href="apply.html"]');
+    if (applyLink) applyLink.addEventListener('click', (e) => { e.preventDefault(); window.location.href = 'apply.html'; });
+    const dashLink = document.querySelector('.nav-links a[href="dashboard.html"]');
+    if (dashLink) dashLink.addEventListener('click', (e) => { e.preventDefault(); window.location.href = 'dashboard.html'; });
+    const termsLink = document.querySelector('.nav-links a[href="loan-terms.html"]');
+    if (termsLink) termsLink.addEventListener('click', (e) => { e.preventDefault(); window.location.href = 'loan-terms.html'; });
+    const faqLink = document.querySelector('.nav-links a[href="faq.html"]');
+    if (faqLink) faqLink.addEventListener('click', (e) => { e.preventDefault(); window.location.href = 'faq.html'; });
+</script>
+</body>
+</html>

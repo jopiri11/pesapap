@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Credit Score Guide | ChapaaExpress – Understanding CRB in Kenya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Hero */
+        .guide-hero {
+            background: linear-gradient(105deg, #004D43 0%, #006B5E 100%);
+            border-radius: 48px;
+            padding: 48px 40px;
+            margin: 40px 0 40px;
+            color: white;
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Score Meter */
+        .score-meter {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px solid #e2ede6;
+        }
+        .score-range {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .score-badge {
+            flex: 1;
+            padding: 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .poor { background: #fee; color: #d00000; }
+        .fair { background: #fff4e6; color: #E67E22; }
+        .good { background: #e0f2e9; color: #006B5E; }
+        .excellent { background: #d4f0e8; color: #00A88F; }
+
+        /* Two Column Layout */
+        .two-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 50px;
+        }
+        .main-col {
+            flex: 2;
+        }
+        .sidebar-col {
+            flex: 1;
+        }
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid #e2ede6;
+        }
+        .info-card h3 {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tip-list {
+            list-style: none;
+        }
+        .tip-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eef2ea;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .tip-list li i {
+            color: #00A88F;
+            margin-top: 3px;
+        }
+        .crb-button {
+            background: #006B5E;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .guide-hero h1 { font-size: 1.6rem; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="#" class="active">CRB Guide</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="guide-hero">
+        <h1><i class="fas fa-chart-line"></i> Understanding Your Credit Score in Kenya</h1>
+        <p>A complete guide to CRB, credit scores, and how to build a healthy financial future.</p>
+    </div>
+
+    <!-- Score Meter -->
+    <div class="score-meter">
+        <h2>What Do Credit Score Ranges Mean in Kenya?</h2>
+        <div class="score-range">
+            <div class="score-badge poor">⬤ Poor (0-499)<br>High risk / Default</div>
+            <div class="score-badge fair">⬤ Fair (500-649)<br>Some negatives</div>
+            <div class="score-badge good">⬤ Good (650-749)<br>Reliable borrower</div>
+            <div class="score-badge excellent">⬤ Excellent (750-850)<br>Best rates</div>
+        </div>
+        <p style="color:#5a6e68;">Scores are calculated by TransUnion and Metropol CRB based on your repayment history, defaults, and credit utilization.</p>
+    </div>
+
+    <div class="two-col">
+        <div class="main-col">
+            <div class="info-card">
+                <h3><i class="fas fa-building"></i> What is CRB and Why Does It Matter?</h3>
+                <p>Credit Reference Bureaus (CRBs) in Kenya — TransUnion and Metropol — collect and maintain credit information from all licensed lenders, including banks, SACCOs, and digital lenders like ChapaaExpress.</p>
+                <p style="margin-top: 12px;">Your CRB report is used by lenders to determine:</p>
+                <ul style="margin-left: 24px; margin-top: 8px;">
+                    <li>Whether to approve your loan application</li>
+                    <li>How much you can borrow</li>
+                    <li>The interest rate you'll pay</li>
+                    <li>Loan repayment terms</li>
+                </ul>
+                <div style="background: #eef6f3; padding: 16px; border-radius: 20px; margin-top: 20px;">
+                    <i class="fas fa-gavel"></i> <strong>Legal Note:</strong> Under Kenyan law, all licensed lenders must report both positive and negative credit information to CRBs. This means on-time repayments can actually <strong>improve</strong> your credit score!
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-check-circle"></i> How to Check Your Credit Report for Free</h3>
+                <p>Kenyan law entitles you to <strong>one free credit report per year</strong> from each CRB. Here's how to access yours:</p>
+                <ol style="margin-left: 24px; margin-top: 12px; line-height: 1.8;">
+                    <li><strong>TransUnion Kenya:</strong> Visit www.transunion.co.ke or dial *433#</li>
+                    <li><strong>Metropol CRB:</strong> Visit www.metropol.co.ke or dial *433#</li>
+                    <li>Submit your ID number and phone number</li>
+                    <li>Verify your identity via OTP</li>
+                    <li>Download your credit report instantly</li>
+                </ol>
+                <button id="checkScoreBtn" class="crb-button"><i class="fas fa-search"></i> Check Your CRB Score (External Link)</button>
+                <p style="font-size: 0.75rem; margin-top: 12px; color: #8ba39a;"><i class="fas fa-info-circle"></i> This will open the official CRB portal. ChapaaExpress does not store your credit report.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-arrow-up"></i> 10 Ways to Improve Your Credit Score</h3>
+                <ul class="tip-list">
+                    <li><i class="fas fa-clock"></i> <strong>Pay all loans on time</strong> — Even one late payment affects your score for months.</li>
+                    <li><i class="fas fa-chart-line"></i> <strong>Repay early when possible</strong> — Early repayment shows financial discipline.</li>
+                    <li><i class="fas fa-ban"></i> <strong>Avoid multiple loan applications</strong> — Each inquiry slightly lowers your score.</li>
+                    <li><i class="fas fa-percent"></i> <strong>Keep credit utilization below 50%</strong> — Don't borrow your full limit.</li>
+                    <li><i class="fas fa-history"></i> <strong>Build a long credit history</strong> — Older accounts improve your score.</li>
+                    <li><i class="fas fa-file-invoice"></i> <strong>Dispute any errors on your report</strong> — Contact CRB directly for corrections.</li>
+                    <li><i class="fas fa-handshake"></i> <strong>Settle any existing defaults</strong> — Paid defaults still show but are better than unpaid.</li>
+                    <li><i class="fas fa-mobile-alt"></i> <strong>Use different types of credit</strong> — Mix of mobile loans, bank loans, and SACCOs looks good.</li>
+                    <li><i class="fas fa-bell"></i> <strong>Set repayment reminders</strong> — Avoid forgetting due dates.</li>
+                    <li><i class="fas fa-chart-simple"></i> <strong>Monitor your score regularly</strong> — Track progress every 3-6 months.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-col">
+            <div class="info-card">
+                <h3><i class="fas fa-chart-pie"></i> How Long Do Negative Listings Stay?</h3>
+                <ul style="list-style: none;">
+                    <li style="padding: 8px 0;"><strong>Late payments (30-90 days):</strong> 3 years</li>
+                    <li style="padding: 8px 0;"><strong>Defaults / Written off:</strong> 5 years</li>
+                    <li style="padding: 8px 0;"><strong>Bankruptcy:</strong> 5-7 years</li>
+                    <li style="padding: 8px 0;"><strong>Fraudulent activity:</strong> Indefinite</li>
+                </ul>
+                <div style="background: #fff4e6; padding: 12px; border-radius: 16px; margin-top: 12px;">
+                    <i class="fas fa-hourglass-half"></i> Good news: Positive information stays on your report indefinitely, helping you build a strong profile!
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-question-circle"></i> Common CRB Myths Debunked</h3>
+                <ul class="tip-list">
+                    <li><i class="fas fa-times-circle" style="color:#d00000;"></i> <strong>Myth:</strong> "Paying a default removes it completely."<br><span style="font-size: 0.8rem;">Truth: It shows as "Paid in Full" but the default remains for 5 years.</span></li>
+                    <li><i class="fas fa-times-circle" style="color:#d00000;"></i> <strong>Myth:</strong> "Only banks report to CRB."<br><span style="font-size: 0.8rem;">Truth: All licensed digital lenders, SACCOs, and even some utility companies report.</span></li>
+                    <li><i class="fas fa-times-circle" style="color:#d00000;"></i> <strong>Myth:</strong> "Checking my score lowers it."<br><span style="font-size: 0.8rem;">Truth: Soft inquiries (personal checks) do NOT affect your score.</span></li>
+                    <li><i class="fas fa-times-circle" style="color:#d00000;"></i> <strong>Myth:</strong> "A high score means I'll always get loans."<br><span style="font-size: 0.8rem;">Truth: Lenders also consider income, employment, and existing debt.</span></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-hand-holding-usd"></i> How ChapaaExpress Helps Your Credit</h3>
+                <ul class="tip-list">
+                    <li><i class="fas fa-check-circle" style="color:#006B5E;"></i> We report <strong>positive payments</strong> to CRBs</li>
+                    <li><i class="fas fa-check-circle" style="color:#006B5E;"></i> On-time repayment increases your limit</li>
+                    <li><i class="fas fa-check-circle" style="color:#006B5E;"></i> Early repayment saves interest and looks great on your report</li>
+                    <li><i class="fas fa-check-circle" style="color:#006B5E;"></i> We offer second chances after defaults are cleared</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-file-download"></i> Download CRB Resources</h3>
+                <p style="margin-bottom: 12px;">Free guides to help you understand and manage your credit:</p>
+                <button id="downloadGuideBtn" style="background: none; border: 1.5px solid #006B5E; color: #006B5E; padding: 10px; border-radius: 40px; width: 100%; margin-bottom: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-file-pdf"></i> Complete CRB Guide (PDF)</button>
+                <button id="downloadDisputeBtn" style="background: none; border: 1.5px solid #006B5E; color: #006B5E; padding: 10px; border-radius: 40px; width: 100%; cursor: pointer; font-weight: 600;"><i class="fas fa-file-pdf"></i> CRB Dispute Template</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Building better credit for every Kenyan.</p></div>
+            <div class="footer-col"><h4>Resources</h4><p><a href="credit-score-guide.html">CRB Guide</a><br><a href="downloads.html">Downloads</a><br><a href="faq.html">FAQ</a></p></div>
+            <div class="footer-col"><h4>Contact</h4><p>WhatsApp: +254700987654<br>Email: help@chapaexpress.co.ke</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — Your credit score, your future</div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+    function showToast(message, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 3000);
+    }
+
+    // Check CRB Score button - opens official portals
+    document.getElementById('checkScoreBtn')?.addEventListener('click', () => {
+        showToast("🔍 Opening TransUnion Kenya portal. You can also dial *433# from any phone.", false);
+        window.open("https://www.transunion.co.ke/personal/credit-report", "_blank");
+    });
+
+    // Download fake PDF guides (simulated)
+    function downloadFile(filename, content) {
+        const blob = new Blob([content], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`📄 Download started: ${filename}`, false);
+    }
+
+    document.getElementById('downloadGuideBtn')?.addEventListener('click', () => {
+        const content = `CHAPAAEXPRESS - COMPLETE CRB GUIDE FOR KENYANS\n\n===========================================\n\n1. What is CRB?\nCredit Reference Bureaus (TransUnion & Metropol) collect your credit history.\n\n2. How to Check Your Score:\n- Dial *433# on Safaricom, Airtel, or Telkom\n- Visit www.transunion.co.ke\n- Free once per year by law\n\n3. Score Ranges:\n- 0-499: Poor (High risk)\n- 500-649: Fair\n- 650-749: Good\n- 750-850: Excellent\n\n4. Improving Your Score:\n- Pay on time, every time\n- Settle existing defaults\n- Use credit responsibly\n- Check your report annually\n\nFor more help, contact ChapaaExpress support.\n\n© 2025 ChapaaExpress`;
+        downloadFile("CRB-Guide-Kenya.pdf", content);
+    });
+
+    document.getElementById('downloadDisputeBtn')?.addEventListener('click', () => {
+        const content = `CRB DISPUTE LETTER TEMPLATE\n================================\n\nDate: _______________\n\nTo: Credit Reference Bureau\n[TransUnion Kenya / Metropol CRB]\n\nRE: DISPUTE OF INCORRECT INFORMATION ON MY CREDIT REPORT\n\nDear Sir/Madam,\n\nI am writing to dispute the following information on my credit report:\n\n- Account Number/Lender: _______________\n- Error Description: _______________\n- Correct Information: _______________\n\nMy personal details:\nFull Name: _______________\nID Number: _______________\nPhone Number: _______________\n\nAttached evidence: [ ] Payment receipts [ ] Clearance letter [ ] Other\n\nPlease investigate and correct this error within 14 days as required by law.\n\nYours faithfully,\n\nSignature: _______________\n\nSend to: disputes@transunion.co.ke OR disputes@metropol.co.ke\n\nFor assistance, contact ChapaaExpress support.`;
+        downloadFile("CRB-Dispute-Template.pdf", content);
+    });
+
+    // Navbar navigation
+    const navPages = ['index.html', 'apply.html', 'dashboard.html', 'loan-terms.html', 'faq.html', 'contact.html', 'blog.html'];
+    navPages.forEach(page => {
+        const link = document.querySelector(`.nav-links a[href="${page}"]`);
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = page;
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>500 Server Error | ChapaaExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fefcf5 0%, #f0f5f0 100%);
+            color: #1e2a2f;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-container {
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: 800;
+            color: #006B5E;
+            margin-bottom: 16px;
+        }
+        .error-icon {
+            font-size: 4rem;
+            color: #E67E22;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #5a6e68;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #006B5E;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary {
+            background: white;
+            border: 1.5px solid #006B5E;
+            color: #006B5E;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .contact-support {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e2ede6;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">500</div>
+        <div class="error-icon"><i class="fas fa-cogs"></i></div>
+        <h1>Something went wrong on our end</h1>
+        <p>We're experiencing technical difficulties. Our team has been notified and is working to fix the issue.</p>
+        <div class="btn-group">
+            <a href="index.html" class="btn-primary"><i class="fas fa-home"></i> Go Home</a>
+            <a href="contact.html" class="btn-secondary"><i class="fas fa-headset"></i> Contact Support</a>
+        </div>
+        <div class="contact-support">
+            <p><i class="fas fa-clock"></i> Try again in a few minutes</p>
+            <p><small>Error Reference: CHAPA-500-2025</small></p>
+        </div>
+    </div>
+</body>
+</html>

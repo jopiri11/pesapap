@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Blog | ChapaaExpress – Financial Literacy for Kenyans</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+
+        /* Blog Header */
+        .blog-header {
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+        .blog-header h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #004D43, #008b77);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+        .blog-header p {
+            color: #5a6e68;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            background: linear-gradient(125deg, #004D43, #006B5E);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 20px 0 50px;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .featured-content {
+            flex: 2;
+        }
+        .featured-badge {
+            background: #E67E22;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .featured-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .featured-content p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .read-more {
+            background: white;
+            color: #004D43;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .featured-icon {
+            flex: 1;
+            text-align: center;
+            font-size: 5rem;
+        }
+
+        /* Category Filters */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0 40px;
+        }
+        .cat-filter {
+            background: white;
+            border: 1.5px solid #d6e4de;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .cat-filter.active, .cat-filter:hover {
+            background: #006B5E;
+            color: white;
+            border-color: #006B5E;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid #e6f0eb;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .blog-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(0,107,94,0.1);
+        }
+        .card-img {
+            background: linear-gradient(135deg, #d4e4dd, #b8d0c7);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #006B5E;
+        }
+        .card-content {
+            padding: 24px;
+        }
+        .card-category {
+            color: #E67E22;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .card-content p {
+            color: #5a6e68;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .read-link {
+            color: #006B5E;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: #eef6f3;
+            border-radius: 48px;
+            padding: 48px 40px;
+            text-align: center;
+            margin: 20px 0 60px;
+        }
+        .newsletter h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .newsletter-form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 500px;
+            margin: 24px auto 0;
+        }
+        .newsletter-form input {
+            flex: 2;
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: 1px solid #cde0d8;
+            font-size: 1rem;
+        }
+        .newsletter-form button {
+            background: #006B5E;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 48px 0 24px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col p, .footer-col a { color: #bcd3cc; text-decoration: none; line-height: 1.8; }
+
+        @media (max-width: 750px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .featured-article { flex-direction: column; text-align: center; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 32px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .close-modal {
+            float: right;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="loan-terms.html">Loan Terms</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="active">Blog</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="blog-header">
+        <h1><i class="fas fa-graduation-cap"></i> Financial Literacy Hub</h1>
+        <p>Tips, guides, and advice to help you make smart borrowing decisions and build a healthy credit score in Kenya.</p>
+    </div>
+
+    <!-- Featured Article -->
+    <div class="featured-article">
+        <div class="featured-content">
+            <div class="featured-badge">🌟 FEATURED</div>
+            <h2>How to improve your CRB credit score in 90 days</h2>
+            <p>A low credit score can lock you out of loans, housing, and even jobs. Learn actionable steps to rebuild your CRB standing, negotiate with lenders, and access better interest rates — written specifically for Kenyan borrowers.</p>
+            <button class="read-more" data-article="featured">Read Full Guide →</button>
+        </div>
+        <div class="featured-icon">
+            <i class="fas fa-chart-line"></i>
+        </div>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="categories">
+        <button class="cat-filter active" data-filter="all">All Articles</button>
+        <button class="cat-filter" data-filter="credit">Credit Score & CRB</button>
+        <button class="cat-filter" data-filter="tips">Smart Borrowing</button>
+        <button class="cat-filter" data-filter="mpesa">M-Pesa & Digital</button>
+        <button class="cat-filter" data-filter="debt">Debt Management</button>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="blog-grid" id="blogGrid">
+        <!-- Article 1 -->
+        <div class="blog-card" data-category="credit">
+            <div class="card-img"><i class="fas fa-file-invoice-dollar"></i></div>
+            <div class="card-content">
+                <div class="card-category">CREDIT SCORE</div>
+                <h3>What is CRB and why it matters for your loan approval</h3>
+                <p>Understanding Credit Reference Bureaus in Kenya: how lenders see your report, what lowers your score, and how to check your report for free.</p>
+                <a href="#" class="read-link" data-article="crb101">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="blog-card" data-category="tips">
+            <div class="card-img"><i class="fas fa-calculator"></i></div>
+            <div class="card-content">
+                <div class="card-category">SMART BORROWING</div>
+                <h3>5 questions to ask before taking a mobile loan</h3>
+                <p>Interest rates, repayment period, hidden fees — here's what every Kenyan should check before clicking "Apply".</p>
+                <a href="#" class="read-link" data-article="smartborrow">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="blog-card" data-category="mpesa">
+            <div class="card-img"><i class="fas fa-mobile-alt"></i></div>
+            <div class="card-content">
+                <div class="card-category">M-PESA</div>
+                <h3>M-Pesa loans vs bank loans: Which is right for you?</h3>
+                <p>Speed vs interest rates: a practical comparison for emergency needs, business capital, and long-term goals.</p>
+                <a href="#" class="read-link" data-article="mpesavsbank">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 4 -->
+        <div class="blog-card" data-category="debt">
+            <div class="card-img"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="card-content">
+                <div class="card-category">DEBT MANAGEMENT</div>
+                <h3>What to do if you can't repay your loan on time</h3>
+                <p>Options for loan restructuring, negotiating with lenders, and avoiding CRB blacklisting in Kenya.</p>
+                <a href="#" class="read-link" data-article="cantrepay">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 5 -->
+        <div class="blog-card" data-category="credit">
+            <div class="card-img"><i class="fas fa-chart-simple"></i></div>
+            <div class="card-content">
+                <div class="card-category">CREDIT SCORE</div>
+                <h3>How to remove your name from CRB after settling a loan</h3>
+                <p>Step-by-step guide: timeline, required documents, and how to confirm your record is cleared with TransUnion or Metropol.</p>
+                <a href="#" class="read-link" data-article="removecrb">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 6 -->
+        <div class="blog-card" data-category="tips">
+            <div class="card-img"><i class="fas fa-coins"></i></div>
+            <div class="card-content">
+                <div class="card-category">SMART BORROWING</div>
+                <h3>Emergency loan vs business loan: Which one do you need?</h3>
+                <p>Matching loan types to your real needs — avoid over-borrowing and costly interest mistakes.</p>
+                <a href="#" class="read-link" data-article="emergencyloan">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 7 -->
+        <div class="blog-card" data-category="debt">
+            <div class="card-img"><i class="fas fa-hand-holding-usd"></i></div>
+            <div class="card-content">
+                <div class="card-category">DEBT MANAGEMENT</div>
+                <h3>Debt avalanche vs debt snowball: Which works in Kenya?</h3>
+                <p>Two proven methods to pay off multiple loans faster — with local examples and calculator tips.</p>
+                <a href="#" class="read-link" data-article="debtmethods">Read more →</a>
+            </div>
+        </div>
+
+        <!-- Article 8 -->
+        <div class="blog-card" data-category="mpesa">
+            <div class="card-img"><i class="fas fa-robot"></i></div>
+            <div class="card-content">
+                <div class="card-category">DIGITAL TIPS</div>
+                <h3>Avoiding loan app scams: How to identify legitimate lenders</h3>
+                <p>Red flags, fake apps, and how to verify CBK-licensed digital credit providers in Kenya.</p>
+                <a href="#" class="read-link" data-article="scams">Read more →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <div class="newsletter">
+        <h3><i class="fas fa-envelope-open-text"></i> Get financial tips in your inbox</h3>
+        <p>Weekly guides on CRB, saving, and borrowing smarter — free for Kenyans.</p>
+        <div class="newsletter-form">
+            <input type="email" id="newsletterEmail" placeholder="Your email address">
+            <button id="subscribeBtn">Subscribe</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Empowering Kenyans with fair loans and financial education.</p></div>
+            <div class="footer-col"><h4>Resources</h4><p>Blog<br>CRB Guide<br>Loan Calculator<br>Financial Literacy</p></div>
+            <div class="footer-col"><h4>Legal</h4><p>Terms apply. Borrow responsibly. CRB licensed.</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">© 2025 ChapaaExpress — Knowledge is the best investment</div>
+    </div>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<!-- Modal for reading full articles -->
+<div id="articleModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalBody">
+            <h2 id="modalTitle">Article Title</h2>
+            <div id="modalText">Content will appear here...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Article content database (demo full content)
+    const articles = {
+        featured: {
+            title: "How to improve your CRB credit score in 90 days",
+            content: "<p>Your CRB score determines loan eligibility, interest rates, and even job opportunities in Kenya. Here's a 3-month action plan:</p><ul><li><strong>Month 1:</strong> Get your free credit report from TransUnion or Metropol. Identify negative listings.</li><li><strong>Month 2:</strong> Negotiate with lenders to settle outstanding debts. Request 'paid in full' updates.</li><li><strong>Month 3:</strong> Take a small loan and repay early to build positive history.</li></ul><p>Consistency is key. After 90 days of good behavior, your score can improve by 50-100 points.</p>"
+        },
+        crb101: {
+            title: "What is CRB and why it matters for your loan approval",
+            content: "<p>Credit Reference Bureaus (CRBs) like TransUnion and Metropol collect your borrowing history. Lenders check your report before approving loans.</p><p><strong>What lowers your score:</strong> Late payments, defaults, multiple loan applications.</p><p><strong>What improves it:</strong> On-time repayment, low credit utilization, loan variety.</p><p>You can get one free CRB report per year via email or SMS.</p>"
+        },
+        smartborrow: {
+            title: "5 questions to ask before taking a mobile loan",
+            content: "<p>1. What is the daily or monthly interest rate?<br>2. Are there hidden processing fees?<br>3. Can I repay early without penalty?<br>4. Will late payment affect my CRB?<br>5. Is the lender licensed by CBK?</p><p>Always read terms before clicking 'Accept'.</p>"
+        },
+        mpesavsbank: {
+            title: "M-Pesa loans vs bank loans: Which is right for you?",
+            content: "<p><strong>M-Pesa loans:</strong> Fast (minutes), small amounts (500-50k KES), higher interest (1-3% daily). Best for emergencies.</p><p><strong>Bank loans:</strong> Slower (days/weeks), larger amounts (50k+), lower interest (12-18% yearly). Best for business or assets.</p><p>Choose based on urgency and amount needed.</p>"
+        },
+        cantrepay: {
+            title: "What to do if you can't repay your loan on time",
+            content: "<p>1. Contact your lender BEFORE the due date to request restructuring.<br>2. Pay at least the interest to avoid penalty compounding.<br>3. Avoid taking new loans to cover old ones (debt trap).<br>4. Negotiate a payment plan with lower installments.<br>5. Seek free financial counseling from AKFC or local organizations.</p>"
+        },
+        removecrb: {
+            title: "How to remove your name from CRB after settling a loan",
+            content: "<p>Step 1: Settle all outstanding amounts and get a clearance certificate.<br>Step 2: Ask your lender to submit 'Paid in Full' to CRB (within 7 days by law).<br>Step 3: Request a free CRB report after 14 days to confirm removal.<br>Step 4: If still listed, file a dispute with the CRB directly.</p>"
+        },
+        emergencyloan: {
+            title: "Emergency loan vs business loan: Which one do you need?",
+            content: "<p><strong>Emergency loans:</strong> Small amount, short term (7-30 days), high interest — for medical, school fees, urgent bills.</p><p><strong>Business loans:</strong> Larger amount, longer term (3-12 months), lower interest — for inventory, equipment, expansion.</p><p>Mixing them up leads to default. Match loan type to purpose.</p>"
+        },
+        debtmethods: {
+            title: "Debt avalanche vs debt snowball: Which works in Kenya?",
+            content: "<p><strong>Debt Avalanche:</strong> Pay highest interest loans first — saves money mathematically.</p><p><strong>Debt Snowball:</strong> Pay smallest balance first — builds motivation.</p><p>For most Kenyans with Fuliza, M-Shwari, and mobile loans, the avalanche method (target high-interest first) saves more.</p>"
+        },
+        scams: {
+            title: "Avoiding loan app scams: How to identify legitimate lenders",
+            content: "<p>Red flags: No CBK license listed, asks for M-Pesa PIN, requests advance fees, no physical address.</p><p>Always verify on CBK website: list of approved Digital Credit Providers. ChapaaExpress is fully licensed.</p>"
+        }
+    };
+
+    // Modal handling
+    const modal = document.getElementById('articleModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const closeModal = document.querySelector('.close-modal');
+
+    function openArticle(articleKey) {
+        const article = articles[articleKey];
+        if (article) {
+            modalTitle.innerText = article.title;
+            modalText.innerHTML = article.content;
+            modal.style.display = 'flex';
+        } else {
+            showToast("Article content loading...", false);
+        }
+    }
+
+    // Attach click listeners to all read links
+    document.querySelectorAll('.read-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const articleKey = link.getAttribute('data-article');
+            if (articleKey && articles[articleKey]) {
+                openArticle(articleKey);
+            }
+        });
+    });
+
+    document.querySelector('.read-more')?.addEventListener('click', () => {
+        openArticle('featured');
+    });
+
+    closeModal?.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // Category filtering
+    const filterBtns = document.querySelectorAll('.cat-filter');
+    const blogCards = document.querySelectorAll('.blog-card');
+
+    function filterArticles(category) {
+        blogCards.forEach(card => {
+            const cardCat = card.getAttribute('data-category');
+            if (category === 'all' || cardCat === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            filterArticles(filter);
+        });
+    });
+
+    // Toast helper
+    function showToast(msg) {
+        const toast = document.getElementById('toastMsg');
+        toast.style.display = 'block';
+        toast.innerText = msg;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+            }, 300);
+        }, 2800);
+    }
+
+    // Newsletter subscription
+    document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+        const email = document.getElementById('newsletterEmail').value.trim();
+        if (!email || !email.includes('@')) {
+            showToast("Please enter a valid email address.");
+            return;
+        }
+        showToast(`✅ Subscribed! Check your inbox for financial tips.`);
+        document.getElementById('newsletterEmail').value = '';
+    });
+
+    // Navbar links
+    const links = ['index.html', 'apply.html', 'dashboard.html', 'loan-terms.html', 'faq.html', 'contact.html'];
+    links.forEach(link => {
+        const el = document.querySelector(`.nav-links a[href="${link}"]`);
+        if (el) {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = link;
+            });
+        }
+    });
+</script>
+</body>
+</html>

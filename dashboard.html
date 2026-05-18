@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>My Dashboard | ChapaaExpress – Loan Status & Repayment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f2;
+            color: #1e2a2f;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 32px;
+            background: rgba(255, 253, 245, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 100, 80, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #006B5E, #00A88F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span { color: #E67E22; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e2a2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links .active { color: #006B5E; font-weight: 700; }
+        .user-badge {
+            background: #006B5E10;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #006B5E30;
+        }
+        .user-badge i { color: #006B5E; margin-right: 8px; }
+
+        /* Dashboard header */
+        .dashboard-header {
+            margin: 32px 0 24px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+        .welcome h1 { font-size: 1.8rem; font-weight: 700; }
+        .welcome p { color: #5a6e68; margin-top: 6px; }
+        .credit-score {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .credit-score span { font-weight: 800; font-size: 1.5rem; color: #006B5E; }
+
+        /* Active loan card */
+        .active-loan-card {
+            background: linear-gradient(125deg, #004D43, #008b77);
+            border-radius: 36px;
+            padding: 28px 32px;
+            color: white;
+            margin-bottom: 48px;
+            box-shadow: 0 20px 35px rgba(0,107,94,0.25);
+        }
+        .loan-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .loan-status {
+            background: #FFB34720;
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .loan-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin: 20px 0;
+        }
+        .detail-item .label { font-size: 0.8rem; opacity: 0.8; margin-bottom: 4px; }
+        .detail-item .value { font-size: 1.6rem; font-weight: 800; }
+        .repay-btn {
+            background: white;
+            color: #004D43;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .repay-btn:hover { transform: scale(1.02); background: #FFE3B5; }
+
+        /* two column layout for history & limit */
+        .two-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        .history-card, .limit-card {
+            flex: 1;
+            background: white;
+            border-radius: 32px;
+            padding: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border: 1px solid #e0ede6;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-left: 4px solid #00A88F;
+            padding-left: 14px;
+        }
+        .loan-history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid #eef2ea;
+            flex-wrap: wrap;
+        }
+        .status-paid { color: #2b9348; font-weight: 700; }
+        .status-default { color: #d00000; font-weight: 700; }
+        .limit-progress {
+            background: #e9ecef;
+            border-radius: 40px;
+            height: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .limit-fill {
+            background: #00A88F;
+            width: 68%;
+            height: 12px;
+            border-radius: 40px;
+        }
+        .next-limit {
+            background: #eef3f0;
+            padding: 14px;
+            border-radius: 24px;
+            margin-top: 24px;
+        }
+
+        /* FAQ mini */
+        .faq-mini {
+            background: #ffffffd9;
+            border-radius: 32px;
+            padding: 28px;
+            margin-bottom: 40px;
+            border: 1px solid #d4e2db;
+        }
+
+        footer {
+            background: #0C2C27;
+            color: #cfded9;
+            padding: 40px 0 24px;
+            border-radius: 40px 40px 0 0;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        @media (max-width: 750px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .loan-details-grid .value { font-size: 1.2rem; }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a2f;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            z-index: 1200;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Chapaa<span>Express</span> <i class="fas fa-bolt" style="color:#E67E22;"></i></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="apply.html">Apply</a>
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Loan Terms</a>
+    </div>
+    <div class="user-badge"><i class="fas fa-user-circle"></i> Grace Wanjiku</div>
+</div>
+
+<div class="container">
+    <!-- dashboard header -->
+    <div class="dashboard-header">
+        <div class="welcome">
+            <h1>Welcome back, Grace 👋</h1>
+            <p>Track your loan, repay instantly, or increase your limit.</p>
+        </div>
+        <div class="credit-score">
+            <i class="fas fa-chart-line"></i> CRB Score: <span>612</span> / 850 (Fair)
+        </div>
+    </div>
+
+    <!-- Active loan section (dynamic) -->
+    <div class="active-loan-card" id="activeLoanCard">
+        <div class="loan-header">
+            <h2><i class="fas fa-hand-holding-usd"></i> Your active loan</h2>
+            <div class="loan-status" id="loanStatusBadge"><i class="fas fa-clock"></i> Active - on time</div>
+        </div>
+        <div class="loan-details-grid">
+            <div class="detail-item"><div class="label">Principal borrowed</div><div class="value" id="activePrincipal">KES 10,000</div></div>
+            <div class="detail-item"><div class="label">Total to repay</div><div class="value" id="activeTotalDue">KES 11,500</div></div>
+            <div class="detail-item"><div class="label">Remaining balance</div><div class="value" id="activeRemaining">KES 8,500</div></div>
+            <div class="detail-item"><div class="label">Due date</div><div class="value" id="activeDueDate">May 28, 2026</div></div>
+        </div>
+        <div>
+            <button class="repay-btn" id="repayNowBtn"><i class="fas fa-mobile-alt"></i> Repay via M-Pesa</button>
+            <span style="margin-left: 16px; font-size: 0.8rem;"><i class="fas fa-info-circle"></i> Early repayment reduces interest</span>
+        </div>
+    </div>
+
+    <!-- Two column: history + limit -->
+    <div class="two-col">
+        <div class="history-card">
+            <div class="section-title"><i class="fas fa-history"></i> Loan history</div>
+            <div id="loanHistoryList">
+                <!-- dynamic history items -->
+                <div class="loan-history-item">
+                    <div><strong>KES 5,000</strong><br><small>Mar 2, 2026 • 14 days</small></div>
+                    <div><span class="status-paid">✓ Paid early</span><br><small>Total: KES 5,650</small></div>
+                </div>
+                <div class="loan-history-item">
+                    <div><strong>KES 2,000</strong><br><small>Jan 15, 2026 • 7 days</small></div>
+                    <div><span class="status-paid">✓ Paid on time</span><br><small>Total: KES 2,210</small></div>
+                </div>
+                <div class="loan-history-item">
+                    <div><strong>KES 12,000</strong><br><small>Nov 10, 2025 • 30 days</small></div>
+                    <div><span class="status-paid">✓ Fully repaid</span><br><small>Total: KES 13,800</small></div>
+                </div>
+                <div class="loan-history-item">
+                    <div><strong>KES 1,500</strong><br><small>Sept 5, 2025 • 7 days</small></div>
+                    <div><span class="status-default">⚠️ Late (settled)</span><br><small>Total+penalty: KES 1,820</small></div>
+                </div>
+            </div>
+            <div style="margin-top: 18px; font-size:0.8rem; text-align:center;"><a href="#" style="color:#006B5E;">View full report →</a></div>
+        </div>
+
+        <div class="limit-card">
+            <div class="section-title"><i class="fas fa-chart-simple"></i> Your credit limit</div>
+            <div style="font-size: 2rem; font-weight: 800; color:#006B5E;">KES 35,000</div>
+            <div>Current available: <strong>KES 25,000</strong> (after active loan)</div>
+            <div class="limit-progress"><div class="limit-fill" style="width: 68%;"></div></div>
+            <div class="next-limit">
+                <i class="fas fa-arrow-up"></i> <strong>Next limit: KES 50,000</strong><br>
+                <small>Repay 2 more loans on time to unlock higher limit + lower interest.</small>
+            </div>
+            <button id="increaseLimitBtn" style="margin-top: 20px; background: none; border: 1.5px solid #006B5E; padding: 10px; border-radius: 40px; width:100%; font-weight:600; cursor:pointer;"><i class="fas fa-chart-line"></i> Request limit review</button>
+        </div>
+    </div>
+
+    <!-- quick FAQ / Support snippet -->
+    <div class="faq-mini">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+            <div><i class="fas fa-headset" style="color:#006B5E; font-size: 1.6rem;"></i> <strong>Need help repaying?</strong> Dial *334# or use M-Pesa Paybill: <strong>789123</strong> (Acc: Your phone number)</div>
+            <button id="contactSupportBtn" style="background:#eef3f0; border:none; padding: 8px 22px; border-radius: 40px;"><i class="fab fa-whatsapp"></i> WhatsApp support</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ChapaaExpress</h4><p>Instant digital loans to M-Pesa. Licensed by Central Bank of Kenya.</p></div>
+            <div class="footer-col"><h4>Support</h4><p>hello@chapaexpress.co.ke<br>0709 123 456</p></div>
+            <div class="footer-col"><h4>Legal</h4><p>CRB reporting applies. Repayment terms: 1.5% daily interest.</p></div>
+        </div>
+        <div style="text-align: center; margin-top: 32px;">© 2025 ChapaaExpress — Financial freedom for Kenyans</div>
+    </div>
+</footer>
+
+<div id="globalToast" class="toast-msg"></div>
+
+<script>
+    // Dashboard simulation - realistic data for demo user (Grace)
+    // Active loan details
+    let activeLoan = {
+        principal: 10000,
+        totalToRepay: 11500,
+        remaining: 8500,
+        dueDate: "May 28, 2026",
+        daysLeft: 10,
+        interestRate: 0.015,
+        status: "active"
+    };
+
+    // function to update active loan card UI
+    function refreshActiveLoanUI() {
+        document.getElementById('activePrincipal').innerText = `KES ${activeLoan.principal.toLocaleString()}`;
+        document.getElementById('activeTotalDue').innerText = `KES ${activeLoan.totalToRepay.toLocaleString()}`;
+        document.getElementById('activeRemaining').innerText = `KES ${activeLoan.remaining.toLocaleString()}`;
+        document.getElementById('activeDueDate').innerText = activeLoan.dueDate;
+        if (activeLoan.remaining <= 0) {
+            document.getElementById('activeLoanCard').style.opacity = "0.7";
+            document.getElementById('loanStatusBadge').innerHTML = '<i class="fas fa-check-circle"></i> Paid / No active loan';
+            const repayBtn = document.getElementById('repayNowBtn');
+            if(repayBtn) repayBtn.disabled = true;
+        } else {
+            document.getElementById('loanStatusBadge').innerHTML = '<i class="fas fa-clock"></i> Active - on time';
+        }
+    }
+
+    // show toast notification
+    function showToastMessage(msg, isError = false) {
+        const toast = document.getElementById('globalToast');
+        toast.style.display = 'block';
+        toast.style.background = isError ? '#b91c1c' : '#1e2a2f';
+        toast.innerText = msg;
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.opacity = '1';
+                toast.style.background = '#1e2a2f';
+            }, 300);
+        }, 3000);
+    }
+
+    // Repay simulation: M-Pesa express
+    document.getElementById('repayNowBtn')?.addEventListener('click', () => {
+        if (activeLoan.remaining <= 0) {
+            showToastMessage("✅ No outstanding loan. Apply for a new loan!", false);
+            return;
+        }
+        // simulate partial/full repayment - full repayment for demo
+        const amountToPay = activeLoan.remaining;
+        showToastMessage(`🔁 Initiating M-Pesa payment of KES ${amountToPay.toLocaleString()} via Paybill 789123. STK push sent to your registered number (07XX).`, false);
+        // After 2 sec assume success
+        setTimeout(() => {
+            activeLoan.remaining = 0;
+            activeLoan.totalToRepay = activeLoan.principal;
+            refreshActiveLoanUI();
+            showToastMessage(`✅ Repayment successful! KES ${amountToPay.toLocaleString()} received. Your loan is fully cleared. Thank you for trusting ChapaaExpress.`, false);
+            // update history: add new repaid loan in history dynamically?
+            const historyContainer = document.getElementById('loanHistoryList');
+            const newHistory = document.createElement('div');
+            newHistory.className = 'loan-history-item';
+            newHistory.innerHTML = `<div><strong>KES ${activeLoan.principal.toLocaleString()}</strong><br><small>${new Date().toLocaleDateString()} • Repaid fully</small></div>
+                                    <div><span class="status-paid">✓ Just repaid</span><br><small>Total: KES ${activeLoan.totalToRepay.toLocaleString()}</small></div>`;
+            historyContainer.prepend(newHistory);
+            // update limit: after repayment, available limit increases
+            const limitDiv = document.querySelector('.limit-card .next-limit');
+            if(limitDiv) limitDiv.innerHTML = `<i class="fas fa-arrow-up"></i> <strong>Great! Loan repaid.</strong><br><small>Your available credit is now KES 35,000. Apply again anytime.</small>`;
+            const progressFill = document.querySelector('.limit-fill');
+            if(progressFill) progressFill.style.width = "90%";
+        }, 2000);
+    });
+
+    // Request limit increase
+    document.getElementById('increaseLimitBtn')?.addEventListener('click', () => {
+        showToastMessage("📈 Limit review requested. We'll analyze your repayment history. Expect SMS within 24 hours.", false);
+    });
+
+    // Contact support
+    document.getElementById('contactSupportBtn')?.addEventListener('click', () => {
+        showToastMessage("📱 WhatsApp support: +254700987654 (Opens in WhatsApp). Our team replies in under 5 mins.", false);
+    });
+
+    // simulate dynamic countdown for due date 
+    function updateDueDateWarning() {
+        if(activeLoan.remaining > 0) {
+            const dueStr = activeLoan.dueDate;
+            const dueDateObj = new Date(2026, 4, 28); // May 28 2026
+            const today = new Date();
+            const diff = Math.ceil((dueDateObj - today) / (1000 * 3600 * 24));
+            if (diff <= 3 && diff > 0) {
+                const badge = document.getElementById('loanStatusBadge');
+                if(badge) badge.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Due in ${diff} days - repay soon`;
+            } else if (diff < 0 && activeLoan.remaining > 0) {
+                document.getElementById('loanStatusBadge').innerHTML = `<i class="fas fa-exclamation-circle"></i> OVERDUE - late fees applied`;
+            }
+        }
+    }
+    updateDueDateWarning();
+
+    // Additional UI interactions: show the user dashboard summary
+    const limitPercent = 68; // current limit usage (35k limit, 25k available)
+    const limitFill = document.querySelector('.limit-fill');
+    if(limitFill) limitFill.style.width = `${limitPercent}%`;
+
+    // navigation demo consistency
+    const homeLink = document.querySelector('.nav-links a[href="index.html"]');
+    if(homeLink) homeLink.addEventListener('click', (e) => {e.preventDefault(); window.location.href='index.html';});
+    const applyLink = document.querySelector('.nav-links a[href="apply.html"]');
+    if(applyLink) applyLink.addEventListener('click', (e) => {e.preventDefault(); window.location.href='apply.html';});
+    
+    // if user clicks on 'Loan Terms' in navbar, show a toast (as placeholder)
+    const termsNav = Array.from(document.querySelectorAll('.nav-links a')).find(a => a.innerText.includes('Loan Terms'));
+    if(termsNav) {
+        termsNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToastMessage("📄 Loan Terms: 1.5% daily interest, 50 KES late fee + 1% daily overdue. CRB reporting after 30 days.", false);
+        });
+    }
+    // manual adjustment for initial active loan details 
+    refreshActiveLoanUI();
+
+    // Little tip: repayment via paybill info
+    console.log("Dashboard ready — ChapaaExpress loan management")
+</script>
+</body>
+</html>
